@@ -1,17 +1,14 @@
-# Використовуємо базовий образ Python
-FROM python:3.9-slim
+# Use an official Python runtime as a parent image
+FROM python:3.10-slim
 
-# Встановлюємо робочу директорію в контейнері
-WORKDIR /app
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-# Копіюємо файл вимог (requirements.txt) у робочу директорію
-COPY requirements.txt .
-
-# Встановлюємо залежності з файлу requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Копіюємо весь код програми в робочу директорію
+# Copy the current directory contents into the container at /usr/src/app
 COPY . .
 
-# Визначаємо команду для запуску програми
-CMD ["python", "app.py"]
+# Install the necessary Python packages
+RUN pip install --no-cache-dir requests
+
+# Define the command to run the script
+CMD ["python", "./main.py"]
